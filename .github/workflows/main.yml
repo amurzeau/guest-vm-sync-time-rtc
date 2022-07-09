@@ -29,7 +29,7 @@ jobs:
       - name: Build
         run: |
           mkdir build
-          cmake -S . -B build
+          cmake -S . -B build -DCPACK_PACKAGE_DIRECTORY=packages
           cmake --build build --target package --config RelWithDebInfo
 
       - name: Upload a Build Artifact
@@ -38,12 +38,12 @@ jobs:
           # Artifact name
           name: "guest-vm-sync-time-rtc" # optional, default is artifact
           # A file, directory or wildcard pattern that describes what to upload
-          path: build/*.tar.gz
+          path: build/packages/*.*
 
       - name: Publish
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-            files: 'build/*.tar.gz'
+            files: 'build/packages/*.*'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
