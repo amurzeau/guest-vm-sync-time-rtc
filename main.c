@@ -75,10 +75,10 @@ int check_rtc_jumped(const struct rtc_time* previous_rtc_time,
 
     time_t previous_time_t = timegm(&previous_tm);
     time_t current_time_t = timegm(&current_tm);
-    int64_t diff = current_time_t - previous_time_t ;
+    int64_t diff = current_time_t - previous_time_t;
 
     if(diff < (expected_seconds_elapsed * 0.9 - 1) || diff > (expected_seconds_elapsed * 1.1 + 1)) {
-        printf("rtc time jumped of %lld seconds instead of %lld, syncing system time with rtc\n",
+        printf("RTC time jumped of %lld seconds instead of %lld, syncing system time with rtc\n",
             diff,
             expected_seconds_elapsed);
         return 1;
@@ -118,10 +118,16 @@ void update_system_time() {
         (unsigned long long) time(NULL),
         (unsigned long long) ts.tv_sec);
 
-    result = clock_settime(CLOCK_REALTIME, &ts);
-    if(result < 0) {
-        fprintf(stderr, "Can't set time clock_settime failed: %s(%d)\n", strerror(errno), errno);
-        exit(1);
+
+    if(time(NULL) < ts.tv_sec + 2) {
+        // Don't make the system time go backward, this can cause applications crashes/aborts
+        // We use a margin of 2s to check it
+        fprintf(stderr, "Not updating system time to avoid going backward in the past\n");
+    } else {
+        result = clock_settime(CLOCK_REALTIME, &ts);
+        if(result < 0) {
+            fprintf(stderr, "Can't set time, clock_settime failed: %s(%d)\n", strerror(errno), errno);
+        }
     }
 
     close(rtc_fd);
