@@ -106,8 +106,8 @@ int check_rtc_jumped(const struct rtc_time* previous_rtc_time,
 
     if(diff < (expected_seconds_elapsed * 0.9 - 1) || diff > (expected_seconds_elapsed * 1.1 + 1)) {
         printf("RTC time jumped of %lld seconds instead of %lld, syncing system time with rtc\n",
-            diff,
-            expected_seconds_elapsed);
+            (long long int) diff,
+            (long long int) expected_seconds_elapsed);
         return 1;
     }
 
