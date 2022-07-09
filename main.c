@@ -108,6 +108,8 @@ int check_rtc_jumped(const struct rtc_time* previous_rtc_time,
         printf("RTC time jumped of %lld seconds instead of %lld, syncing system time with rtc\n",
             (long long int) diff,
             (long long int) expected_seconds_elapsed);
+        
+        fflush(stdout);
         return 1;
     }
 
@@ -158,6 +160,8 @@ void update_system_time() {
     }
 
     close(rtc_fd);
+    
+    fflush(stdout);
 }
 
 int main(int argc, char* argv[]) {
@@ -168,6 +172,7 @@ int main(int argc, char* argv[]) {
 
     printf("guest-vm-sync-with-rtc version %s\n", VERSION);
     printf("Synchronizing system time on RTC jump (check period: %d sec)\n", RTC_CHECK_PERIOD_SEC);
+    fflush(stdout);
 
     result = read_rtc(&current_rtc_time);
 
