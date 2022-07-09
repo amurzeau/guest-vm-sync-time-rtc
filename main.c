@@ -9,6 +9,10 @@
 #include <sys/ioctl.h>
 #include <stdlib.h>
 
+#ifndef VERSION
+#define VERSION "unknown-version"
+#endif
+
 #define RTC_DEV_PATH "/dev/rtc"
 #define RTC_CHECK_PERIOD_SEC 60
 
@@ -133,11 +137,14 @@ void update_system_time() {
     close(rtc_fd);
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     struct rtc_time previous_rtc_time;
     struct rtc_time current_rtc_time;
     int previous_result;
     int result;
+
+    printf("guest-vm-sync-with-rtc version %s\n", VERSION);
+    printf("Synchronizing system time on RTC jump (check period: %d sec)\n", RTC_CHECK_PERIOD_SEC);
 
     result = read_rtc(&current_rtc_time);
 

@@ -10,8 +10,8 @@ if(GIT_FOUND)
 		OUTPUT_STRIP_TRAILING_WHITESPACE
 	)
 endif()
-if(GIT_VERSION)
-	string(REGEX REPLACE "^v?([0-9]+\\.[0-9]+(\\.[0-9]+)?).*\$" "\\1" GIT_VERSION_TRIMMED ${GIT_VERSION})
+if(GIT_VERSION AND GIT_VERSION MATCHES "^v")
+	string(REGEX REPLACE "^v([0-9]+\\.[0-9]+(\\.[0-9]+)?).*\$" "\\1" GIT_VERSION_TRIMMED ${GIT_VERSION})
 else()
 	set(GIT_VERSION "unknown-rev")
 	set(GIT_VERSION_TRIMMED "0.0.0")
@@ -23,6 +23,7 @@ project(guest-vm-sync-time-rtc VERSION ${GIT_VERSION_TRIMMED})
 
 add_executable(${PROJECT_NAME} main.c)
 target_compile_definitions(${PROJECT_NAME} PRIVATE _DEFAULT_SOURCE)
+target_compile_definitions(${PROJECT_NAME} PRIVATE "VERSION=\"${GIT_VERSION}\"")
 
 
 set(CPACK_GENERATOR TGZ)
