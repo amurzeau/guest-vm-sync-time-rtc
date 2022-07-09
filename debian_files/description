@@ -1,0 +1,9 @@
+System time synchronization with RTC for VMs
+
+This tool allow synchronizing a guest VM system time running Linux with
+the RTC.
+This is used to keep the guest time synchronized with the host time when:
+
+  - The host was suspended
+  - The guest was suspended
+  - Any other case where the host clock time jump

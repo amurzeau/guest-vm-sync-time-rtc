@@ -1,0 +1,10 @@
+[Unit]
+Description=Time sync with host via RTC
+Conflicts=systemd-timesyncd.service
+
+[Service]
+ExecStart=/usr/sbin/guest-vm-sync-time-rtc
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
