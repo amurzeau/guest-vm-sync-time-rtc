@@ -146,7 +146,7 @@ void update_system_time() {
         (unsigned long long) ts.tv_sec);
 
 
-    if(time(NULL) < ts.tv_sec + 2) {
+    if(time(NULL) + 2 >= ts.tv_sec) {
         // Don't make the system time go backward, this can cause applications crashes/aborts
         // We use a margin of 2s to check it
         fprintf(stderr, "Not updating system time to avoid going backward in the past\n");
