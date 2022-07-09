@@ -26,7 +26,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE _DEFAULT_SOURCE)
 target_compile_definitions(${PROJECT_NAME} PRIVATE "VERSION=\"${GIT_VERSION}\"")
 
 install(TARGETS ${PROJECT_NAME} DESTINATION usr/sbin/)
-install(FILES guest-vm-sync-time-with-rtc.service DESTINATION lib/systemd/system/)
+install(FILES guest-vm-sync-time-rtc.service DESTINATION lib/systemd/system/)
 
 set(CMAKE_PROJECT_HOMEPAGE_URL "https://github.com/amurzeau/guest-vm-sync-time-rtc")
 set(CPACK_GENERATOR TGZ DEB)

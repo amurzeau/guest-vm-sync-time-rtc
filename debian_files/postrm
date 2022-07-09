@@ -9,14 +9,14 @@ fi
 # Automatically added by dh_installsystemd/13.3.4
 if [ "$1" = "remove" ]; then
 	if [ -x "/usr/bin/deb-systemd-helper" ]; then
-		deb-systemd-helper mask 'guest-vm-sync-time-with-rtc.service' >/dev/null || true
+		deb-systemd-helper mask 'guest-vm-sync-time-rtc.service' >/dev/null || true
 	fi
 fi
 
 if [ "$1" = "purge" ]; then
 	if [ -x "/usr/bin/deb-systemd-helper" ]; then
-		deb-systemd-helper purge 'guest-vm-sync-time-with-rtc.service' >/dev/null || true
-		deb-systemd-helper unmask 'guest-vm-sync-time-with-rtc.service' >/dev/null || true
+		deb-systemd-helper purge 'guest-vm-sync-time-rtc.service' >/dev/null || true
+		deb-systemd-helper unmask 'guest-vm-sync-time-rtc.service' >/dev/null || true
 	fi
 fi
 # End automatically added section
