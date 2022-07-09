@@ -24,6 +24,7 @@ project(guest-vm-sync-time-rtc VERSION ${GIT_VERSION_TRIMMED})
 add_executable(${PROJECT_NAME} main.c)
 target_compile_definitions(${PROJECT_NAME} PRIVATE _DEFAULT_SOURCE)
 target_compile_definitions(${PROJECT_NAME} PRIVATE "VERSION=\"${GIT_VERSION}\"")
+install(TARGETS ${PROJECT_NAME})
 
 
 set(CPACK_GENERATOR TGZ)
